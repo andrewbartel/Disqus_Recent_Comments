@@ -244,8 +244,12 @@ class disqus_recent_comments_widget extends WP_Widget {
 	}
 
 	protected function echo_comments($comment, $api_key, $style_params,$args=false) {
+		
 		$cached = get_transient($YOURDISQUS);
-		if (false !== $cached){echo $cached;return;}
+		if (false !== $cached){
+			echo $cached;
+			return;
+		}
 		
 		extract($args);
 		//basic counter
