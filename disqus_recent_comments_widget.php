@@ -384,10 +384,9 @@ class disqus_recent_comments_widget extends WP_Widget {
 				if( $style_params['use_relative_time'] == 1) {
 					$post_time = $this->relative_time( strtotime( $comment_obj['createdAt'] ) );
 				} else {
-					$post_time = date(
-						$style_params["date_format"] ,
-						strtotime($comment_obj['createdAt'])
-					);
+					$date = new DateTime($comment_obj['createdAt'].'Z');
+					$date->setTimezone(new DateTimeZone(get_option('timezone_string')));
+					$post_time = $date->format($style_params["date_format"]);
 				}
 
 				$thread_info = $this->get_thread_info(
